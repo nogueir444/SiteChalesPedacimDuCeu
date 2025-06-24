@@ -86,3 +86,84 @@ window.addEventListener('scroll', () => {
         }
     }
 });
+
+// Selecione os elementos do carrossel
+const carouselTrack = document.querySelector('.carousel-track');
+const carouselImages = document.querySelectorAll('.carousel-image');
+const prevButton = document.querySelector('.carousel-button.prev');
+const nextButton = document.querySelector('.carousel-button.next');
+const dotsContainer = document.querySelector('.carousel-dots');
+const dots = document.querySelectorAll('.dot');
+
+let currentIndex = 0; // Começa na primeira imagem (índice 0)
+const totalSlides = carouselImages.length;
+
+// Função para mostrar um slide específico
+function showSlide(index) {
+    // Garante que o índice esteja dentro dos limites
+    if (index >= totalSlides) {
+        currentIndex = 0;
+    } else if (index < 0) {
+        currentIndex = totalSlides - 1;
+    } else {
+        currentIndex = index;
+    }
+
+    // Move o track do carrossel para mostrar a imagem correta
+    // A cada imagem, o track se move -100% * currentIndex
+    carouselTrack.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+    // Atualiza a classe 'active' nas imagens
+    carouselImages.forEach((img, i) => {
+        if (i === currentIndex) {
+            img.classList.add('active');
+        } else {
+            img.classList.remove('active');
+        }
+    });
+
+    // Atualiza a classe 'active' nos pontos (dots)
+    dots.forEach((dot, i) => {
+        if (i === currentIndex) {
+            dot.classList.add('active');
+        } else {
+            dot.classList.remove('active');
+        }
+    });
+}
+
+// Função para avançar para o próximo slide
+function nextSlide() {
+    showSlide(currentIndex + 1);
+}
+
+// Função para voltar para o slide anterior
+function prevSlide() {
+    showSlide(currentIndex - 1);
+}
+
+// Adiciona eventos de clique aos botões de navegação
+if (prevButton) {
+    prevButton.addEventListener('click', prevSlide);
+}
+if (nextButton) {
+    nextButton.addEventListener('click', nextSlide);
+}
+
+// Adiciona eventos de clique aos indicadores de ponto
+if (dotsContainer) {
+    dotsContainer.addEventListener('click', (event) => {
+        // Verifica se o clique foi em um 'dot'
+        if (event.target.classList.contains('dot')) {
+            // Pega o índice do slide a partir do atributo data-slide
+            const slideIndex = parseInt(event.target.dataset.slide);
+            showSlide(slideIndex);
+        }
+    });
+}
+
+// Inicializa o carrossel mostrando o primeiro slide
+showSlide(currentIndex);
+
+// Opcional: Adicionar auto-play
+let autoPlayInterval = setInterval(nextSlide, 3500);
