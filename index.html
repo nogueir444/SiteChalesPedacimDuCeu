@@ -5,43 +5,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chalés Pedacim du Céu</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="imagens/logo.png" type="image/.png">
 </head>
 <body>
-    <!-- Seção do Cabeçalho - Replicando a Página 1 do PDF -->
     <header class="header">
-        <div class="header-top-background"></div> <!-- Elemento para o fundo verde claro do topo -->
         <div class="logo-container">
+        <div class="logo-circle"></div>
             <img src="imagens/logo.png" onerror="this.onerror=null;this.src='https://placehold.co/250x100/DBF2DC/093C2D?text=Logo+Pedacim';" alt="Logo Pedacim du Céu" class="logo-image">
         </div>
-        <nav class="main-nav">
-            <a href="#chales">Os Chalés</a>
-            <a href="#cachoeira">A Cachoeira</a>
-            <a href="#localizacao">Localização</a>
-        </nav>
-        <button class="reserve-button">RESERVE AQUI</button>
-    </header>
 
+
+        <button class="hamburger-btn" id="hamburger-btn" aria-label="Abrir menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <div class="nav-container" id="nav-container">
+            <nav class="main-nav">
+                <a href="#chales">Os Chalés</a>
+                <a href="#cachoeira">A Cachoeira</a>
+                <a href="#localizacao">Localização</a>
+                <a href="#faq">FAQ</a>
+            </nav>
+            <a href="https://wa.me//5535998142221" target="_blank"><button class="reserve-button">RESERVE AQUI</button></a>
+        </div>
+    </header><hr>
+    
     <main>
-        <!-- Banner principal com o slogan - Replicando a Página 1 do PDF -->
         <section class="hero-banner">
             <h1>Tranquilidade e simplicidade em chalés frente a uma linda cachoeira - Machado I 💦</h1>
         </section>
 
-        <!-- SEÇÃO DE IMAGEM ÚNICA -->
         <section class="single-image-section">
             <div class="image-container-outer">
                 <img src="imagens/imagem chales de fundo.jpg" onerror="this.onerror=null;this.src='https://placehold.co/1000x500/B2D8B2/093C2D?text=Sua+Imagem+Principal';" alt="Imagem Principal do Site" class="single-hero-image">
             </div>
         </section>
-        <!-- FIM DA SEÇÃO DE IMAGEM ÚNICA -->
 
-        <!-- TÍTULO DE SEÇÃO GLOBAL: FICA COLADO NAS LATERAIS -->
         <div class="section-title-container">
             <h2 class="section-title">Chalés Pedacim Du Céu</h2>
             <p class="section-subtitle">Clique no Chalé para saber mais!</p>
         </div>
 
-        <!-- Seção "Os Chalés" - Agora contém apenas o grid e o highlight -->
         <section id="chales" class="chales-section">
             <div class="chale-grid">
                 <div class="chale-card">
@@ -72,7 +78,6 @@
             <p class="chales-highlight">✨ Todos os chalés tem vista pra cachoeira Machado I</p>
         </section>
 
-        <!-- Seções de Informação - Replicando Páginas 4 e 5 do PDF -->
         <section class="info-section">
             <div class="info-block">
                 <div class="info-image-container">
@@ -97,13 +102,11 @@
             </div>
         </section>
 
-        <!-- Seção "Cachoeira do Machado I" - Replicando Páginas 6 e 7 do PDF -->
         <section id="cachoeira" class="cachoeira-section">
-            <!-- TÍTULO DE SEÇÃO PARA CACHOEIRA: FICA COLADO NAS LATERAIS DENTRO DESTA SECTION -->
             <div class="section-title-container">
                 <h2 class="section-title">Cachoeira do Machado I</h2>
             </div>
-            <section class="single-image-section cachoeira-image"> <!-- Nova classe para estilos específicos -->
+            <section class="single-image-section cachoeira-image">
                 <div class="image-container-outer">
                     <img src="imagens/fotoinicial01.jpg" onerror="this.onerror=null;this.src='https://placehold.co/1000x500/B2D8B2/093C2D?text=Imagem+Cachoeira';" alt="Imagem Cachoeira" class="single-hero-image">
                 </div>
@@ -128,9 +131,7 @@
             </div>
         </section>
 
-        <!-- Seção "Localização" - Replicando Página 8 do PDF -->
         <section id="localizacao" class="location-section">
-            <!-- TÍTULO DE SEÇÃO PARA LOCALIZAÇÃO: FICA COLADO NAS LATERAIS DENTRO DESTA SECTION -->
             <div class="section-title-container">
                 <h2 class="section-title">Localização</h2>
             </div>
@@ -144,20 +145,62 @@
                     <a href="https://www.google.com/maps/search/Chal%C3%A9s+Pedacim+Du+C%C3%A9u" target="_blank" class="map-link">Ver mapa ampliado</a>
                 </div>
                 <div class="location-map">
-                    <!-- Placeholder para o mapa do Google Maps. Em um site real, você usaria um iframe do Google Maps. -->
                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3686.5735284729944!2d-46.4162211!3d-22.482655100000002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94c9690a18654ddb%3A0x9afa6eb346a502ea!2sChal%C3%A9s%20Pedacim%20Du%20C%C3%A9u!5e0!3m2!1spt-BR!2sbr!4v1750365038846!5m2!1spt-BR!2sbr" width="600" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </section>
+
+         <!-- Nova Seção: Dúvidas Frequentes (FAQ) -->
+        <section id="faq" class="faq-main-section">
+            <div class="section-title-container">
+                <h2 class="section-title">Dúvidas Frequentes</h2>
+            </div>
+            <div class="faq-section">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <h3>Qual o horário de check-in e check-out?</h3>
+                        <span class="faq-arrow">▼</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Check-in: 14:00 | Check-out: 12:00</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <h3>É permitido levar animais de estimação?</h3>
+                        <span class="faq-arrow">▼</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Sim, aceitamos animais de estimação, mas é necessário consultar a disponibilidade e as regras específicas.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <h3>Há estacionamento disponível?</h3>
+                        <span class="faq-arrow">▼</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Sim, oferecemos estacionamento gratuito para nossos hóspedes.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <h3>Como posso fazer uma reserva?</h3>
+                        <span class="faq-arrow">▼</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Você pode fazer sua reserva diretamente pelo Booking ou entrar em contato conosco via <a href="https://wa.me//5535998142221" target="_blank">WhatsApp</a>.</p>
+                    </div>
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- Rodapé - Replicando Página 10 do PDF -->
     <footer class="footer">
         <div class="footer-contacts">
             <p class="contact-item">
                 <img src="https://logodownload.org/wp-content/uploads/2015/04/whatsapp-logo-1-1.png" onerror="this.onerror=null;this.src='https://placehold.co/24x24/FFFFFF/000000?text=WA';" alt="WhatsApp Ícone">
                 <a href="https://wa.me//5535998142221" target="_blank">(35)9 9814-2221</a>
-                
             </p>
             <p class="contact-item">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Facebook_logo_%28square%29.png/640px-Facebook_logo_%28square%29.png" onerror="this.onerror=null;this.src='https://placehold.co/24x24/FFFFFF/000000?text=FB';" alt="Facebook Ícone">
@@ -166,12 +209,17 @@
             <p class="contact-item">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/768px-Instagram_icon.png" onerror="this.onerror=null;this.src='https://placehold.co/24x24/FFFFFF/000000?text=IG';" alt="Instagram Ícone">
                 <a href="https://www.instagram.com/pedacimduceu?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank">@pedacimduceu</a>
-            </p>
-            <p class="contact-item address">Chalés Pedacim Du Céu, Bueno Brandão - MG, 37578-000</p>
+            </p><br>
+            <p class="contact-item address">Chalés Pedacim Du Céu, Bueno Brandão - MG</p>
         </div>
         <p class="copyright">©2025 TODOS OS DIREITOS RESERVADOS.</p>
-        <p class="developer-info">Developed by [Seu Nome/Empresa]</p>
+        <p class="developer-info">Developed by Lucas Nogueira</p>
     </footer>
+
+    <div id="backToTopBtn" class="back-to-top">
+        &#9650; <!-- Voltar ao topo -->
+    </div>
+
     <script src="scripts.js"></script>
 </body>
 </html>

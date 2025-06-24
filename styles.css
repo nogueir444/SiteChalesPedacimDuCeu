@@ -21,6 +21,10 @@
     font-family: 'Inter', Arial, sans-serif;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     background-color: var(--color-light-background);
     text-align: center;
@@ -28,63 +32,87 @@ body {
     line-height: 1.5; /* Espaçamento entre linhas padrão */
 }
 
+/* Botão topo */
+.back-to-top {
+    position: fixed;
+    bottom: 20px; /* Distância do fundo */
+    right: 20px;  /* Distância da direita */
+
+    /* Aparência */
+    background-color: var(--color-medium-green); /* Ou a cor que preferir */
+    color: var(--color-text-light);
+    padding: 15px;
+    border-radius: 50%; /* Para deixá-lo redondo, se quiser */
+    text-align: center;
+    font-size: 1.4rem; /* Tamanho da seta/ícone */
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    opacity: 0; /* Começa invisível */
+    visibility: hidden; /* Começa oculto para leitores de tela */
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out; /* Transição suave */
+    z-index: 999; /* Garante que fique acima de outros elementos */
+}
+
+.back-to-top:hover {
+    background-color: var(--color-reviews-bg); /* Efeito ao passar o mouse */
+}
+
+/* Classe que o JavaScript irá adicionar para mostrar o botão */
+.back-to-top.show {
+    opacity: 1;
+    visibility: visible;
+}
+
 /* --- Cabeçalho (Página 1 do PDF) --- */
 .header {
-    background-color: var(--color-dark-green);
+    background-color: var(--color-light-green);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 0; /* Padding lateral zero, ajuste via margem dos elementos filhos */
-    height: 120px; /* Altura fixa para o cabeçalho, como no PDF */
-    position: relative; /* Contexto para o fundo curvo */
-    overflow: hidden; /* Corta o excesso do fundo curvo */
-}
-
-.header-top-background {
-    background-color: var(--color-light-background);
-    /* Usamos uma borda-raio grande para simular a curva do PDF */
-    border-bottom-right-radius: 1000px; /* Grande o suficiente para a curva */
-    width: 50vw; /* Largura responsiva para o fundo curvo */
-    height: 200px; /* Altura que define a curva */
-    position: absolute;
-    top: 0;
-    left: -260px; /* Mantido o ajuste do usuário */
-    z-index: 0; /* Fica atrás dos outros elementos */
+    padding: 10px 2%;
+    min-height: 120px;
+    position: relative;
 }
 
 .logo-container {
     position: relative;
-    z-index: 1; /* Acima do fundo curvo */
-    margin-left: 5%; /* Margem responsiva para a esquerda */
-    flex-shrink: 0; /* Impede que o container da logo encolha */
+    z-index: 1001; /* Z-index alto para ficar acima do menu mobile */
+    flex-shrink: 0;
 }
 
 .logo-image {
-    width: 250px; /* Tamanho fixo da logo no desktop, baseado no PDF */
+    border-radius: 25%;
+    max-width: 230px;
+    width: 100%;
     height: auto;
     object-fit: contain;
     display: block;
 }
 
-.main-nav {
-    flex-grow: 1; /* Ocupa o espaço restante */
+/* Container que agrupa NAV e o Botão Reserve */
+.nav-container {
     display: flex;
-    justify-content: center; /* Centraliza os links no espaço disponível */
-    gap: 30px; /* Espaçamento entre os links */
-    z-index: 1;
+    align-items: center;
+    gap: 30px;
+}
+
+.main-nav {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
 }
 
 .main-nav a {
-    color: var(--color-text-light);
+    color: var(--color-text-dark);
     text-decoration: none;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     font-weight: bold;
-    padding: 5px 10px;
-    transition: color 0.3s ease;
+    padding: 5px 32px;
+    transition: color 0.2s ease;
 }
 
 .main-nav a:hover {
-    color: #a7d9b2;
+    color: #488255;
 }
 
 .reserve-button {
@@ -96,25 +124,56 @@ body {
     font-size: 1.3rem;
     font-weight: bold;
     cursor: pointer;
-    margin-right: 3%; /* Margem responsiva para a direita */
     transition: background-color 0.3s ease;
-    z-index: 1;
-    white-space: nowrap; /* Evita que o texto quebre */
-    flex-shrink: 0; /* Impede que o botão encolha */
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .reserve-button:hover {
     background-color: #274237;
 }
 
+/* ESTILOS DO MENU HAMBÚRGUER (SÓ APARECE EM MOBILE) */
+.hamburger-btn {
+    display: none; /* Escondido por padrão no desktop */
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 1001; /* Deve ficar acima de tudo */
+    flex-direction: column;
+    gap: 5px;
+}
+
+.hamburger-btn span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: var(--color-text-dark);
+    border-radius: 3px;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Animação do Hambúrguer para "X" */
+.hamburger-btn.active span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+.hamburger-btn.active span:nth-child(2) {
+    opacity: 0;
+}
+.hamburger-btn.active span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+
+
 /* --- Banner Principal (Página 1 do PDF) --- */
 .hero-banner {
     background-color: var(--color-dark-green);
     color: var(--color-text-light);
     padding: 20px;
-    margin: 20px 2%; /* Margem lateral responsiva */
+    margin: 20px 2%;
     border-radius: 20px;
-    font-size: 18.5px; /* Mantido o ajuste do usuário */
+    font-size: 1.15rem; /* Ajustado para rem */
     font-weight: bold;
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -122,42 +181,40 @@ body {
 
 /* --- SEÇÃO DE IMAGEM ÚNICA (PRINCIPAL) --- */
 .single-image-section {
-    padding: 40px 2%; /* Padding consistente */
+    padding: 40px 2%;
     max-width: 1200px;
-    margin: 40px auto; /* Centraliza a seção */
+    margin: 40px auto;
 }
 
 .image-container-outer {
-    background-color: var(--color-dark-green); /* Borda cor darkgreen */
-    border-radius: 20px; /* Bordas arredondadas */
-    padding: 18px; /* Mantido o ajuste do usuário */
-    overflow: hidden; /* Esconde partes da imagem se exceder */
+    background-color: var(--color-dark-green);
+    border-radius: 20px;
+    padding: 18px;
+    overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    display: flex; /* Para centralizar a imagem dentro */
+    display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .single-hero-image {
-    width: 100%; /* Imagem ocupa a largura total do container */
-    height: 400px; /* Altura fixa para a imagem principal */
-    object-fit: cover; /* Garante que a imagem cubra o espaço, cortando se necessário */
-    border-radius: 15px; /* Bordas arredondadas para a própria imagem */
-    display: block; /* Remove espaços extras */
+    width: 100%;
+    max-height: 400px; /* Usado max-height para flexibilidade */
+    height: auto; /* Permitir ajuste automático de altura */
+    object-fit: cover;
+    border-radius: 15px;
+    display: block;
 }
-/* FIM DA SEÇÃO DE IMAGEM ÚNICA (PRINCIPAL) */
-
 
 /* --- Títulos de Seção GLOBAL --- */
-/* Este estilo se aplica ao título "Chalés Pedacim Du Céu" que está fora das sections */
 .section-title-container {
     background-color: var(--color-dark-green);
     color: var(--color-text-light);
-    padding: 25px 0; /* Padding vertical, padding horizontal zero */
-    margin: 0; /* Remove todas as margens, incluindo a superior e laterais */
-    width: 100%; /* Garante que ocupe 100% da largura do pai (main) */
+    padding: 25px 0;
+    margin: 0;
+    width: 100%;
     text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Mantém a sombra para consistência */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .section-title {
@@ -173,17 +230,16 @@ body {
 
 /* --- Seção "Os Chalés" (Páginas 2 e 3 do PDF) --- */
 .chales-section {
-    padding: 40px 2%; /* Padding lateral responsivo */
-    max-width: 1200px; /* Mantém o grid centralizado com largura máxima */
-    margin: 0 auto; /* Remove margens extras e centraliza */
+    padding: 40px 2%;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .chale-grid {
     display: grid;
-    /* Grid de 3 colunas para desktop, com ajuste automático */
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 25px; /* Espaçamento entre os cards */
-    margin-top: 40px; /* Margem superior para separar do título (se desejar) */
+    gap: 25px;
+    margin-top: 40px;
 }
 
 .chale-card {
@@ -195,14 +251,15 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between; /* Para espaçar imagem e botão */
+    justify-content: space-between;
 }
 
 .chale-image {
     width: 100%;
-    height: 200px; /* Altura fixa para as imagens dos chalés, como no PDF */
+    max-height: 200px; /* Usado max-height para flexibilidade */
+    height: auto; /* Permitir ajuste automático de altura */
     border-radius: 10px;
-    object-fit: cover; /* Garante que a imagem cubra o espaço */
+    object-fit: cover;
     margin-bottom: 15px;
 }
 
@@ -228,10 +285,10 @@ body {
 .chales-highlight {
     font-size: 1.2rem;
     font-weight: bold;
-    color: var(--color-text-light); /* Mantido o ajuste do usuário */
+    color: var(--color-text-light);
     margin-top: 30px;
     padding: 10px 20px;
-    background-color: var(--color-dark-green); /* Mantido o ajuste do usuário */
+    background-color: var(--color-dark-green);
     border-radius: 15px;
     display: inline-block;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -247,8 +304,8 @@ body {
 .info-block {
     display: flex;
     align-items: center;
-    gap: 40px; /* Espaçamento entre imagem e texto */
-    margin-bottom: 60px; /* Espaço entre os blocos de informação */
+    gap: 40px;
+    margin-bottom: 60px;
     background-color: var(--color-medium-green);
     border-radius: 20px;
     padding: 20px;
@@ -256,71 +313,69 @@ body {
 }
 
 .info-block.reverse-layout {
-    flex-direction: row-reverse; /* Inverte a ordem para o segundo bloco */
+    flex-direction: row-reverse;
 }
 
 .info-image-container {
     background-color: var(--color-light-background);
     border-radius: 15px;
     padding: 10px;
-    flex: 0 0 45%; /* Largura fixa de 45% para a imagem */
+    flex: 0 0 45%;
     max-width: 45%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .info-image {
     width: 100%;
-    height: 300px; /* Altura fixa para as imagens de informação */
+    max-height: 300px;
+    height: auto;
     border-radius: 10px;
-    object-fit: cover; /* Garante que a imagem preencha sem distorcer */
+    object-fit: cover;
     display: block;
 }
 
 .info-text {
     flex-grow: 1;
     text-align: left;
-    font-size: 22px; /* Mantido o ajuste do usuário */
+    font-size: 1.375rem;
     font-weight: bold;
     color: var(--color-text-light);
 }
 
 .info-text hr {
     border: none;
-    border-top: 2px solid var(--color-dark-green); /* Linha escura no meio do texto */
+    border-top: 2px solid var(--color-dark-green);
     margin: 20px 0;
-    width: 80%; /* Largura da linha */
+    width: 80%;
 }
 
-/* --- Seção "Cachoeira do Machado I" (Páginas 6 e 7 do PDF) --- */
+/* --- Seção "Cachoeira do Machado I" --- */
 .cachoeira-section {
-    background-color: var(--color-dark-green); /* Mantém o fundo escuro do PDF */
-    color: var(--color-text-light); /* Mantém o texto claro do PDF */
-    padding: 40px 2%; /* Padding lateral responsivo */
-    max-width: 1200px; /* Largura máxima igual ao chales-section */
-    margin: 40px auto; /* Centraliza e mantém margem superior */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adiciona sombra para consistência visual */
-    border-radius: 20px; /* Adiciona borda arredondada para consistência */
+    background-color: var(--color-dark-green);
+    color: var(--color-text-light);
+    padding: 40px 2%;
+    max-width: 1200px;
+    margin: 40px auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
 }
 
-/* Estilo para o título da seção QUANDO DENTRO de uma section específica */
 .cachoeira-section .section-title-container {
-    background-color: transparent; /* Fundo transparente pois a seção já tem cor */
-    box-shadow: none; /* Sem sombra, já que a section pai tem */
-    padding: 0; /* Remove padding, pois a section já tem */
-    margin: 0 auto 30px auto; /* Centraliza e adiciona margem inferior para separar do conteúdo */
-    width: 100%; /* Garante que ocupe 100% da largura da section pai */
-    max-width: unset; /* Remove qualquer max-width anterior para esticar */
+    background-color: transparent;
+    box-shadow: none;
+    padding: 25px 0;
+    margin: 0 auto 30px auto;
+    width: 100%;
 }
 
-/* Estilo para a imagem dentro da seção Cachoeira */
 .cachoeira-section .single-image-section {
-    padding: 0; /* Remove padding lateral do single-image-section */
-    margin: 0 auto; /* Centraliza a seção da imagem dentro da cachoeira */
-    max-width: 100%; /* Permite que a imagem preencha o container da cachoeira */
+    padding: 0;
+    margin: 0 auto;
+    max-width: 100%;
 }
 
 .cachoeira-section .image-container-outer {
-    background-color: var(--color-light-background); /* Fundo claro da borda da imagem na cachoeira */
+    background-color: var(--color-light-background);
     border-radius: 20px;
     padding: 10px;
     overflow: hidden;
@@ -328,17 +383,17 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    max-width: 1000px;
+    margin: 0 auto;
 }
-/* FIM DOS AJUSTES PARA A IMAGEM NA CACHOEIRA */
-
 
 .cachoeira-content-wrapper {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 50px; /* Espaçamento entre as colunas */
-    max-width: 1000px; /* Controla a largura do conteúdo interno */
-    margin: 30px auto 0; /* Centraliza o conteúdo interno */
+    gap: 50px;
+    max-width: 1000px;
+    margin: 30px auto 0;
     text-align: left;
 }
 
@@ -408,26 +463,24 @@ body {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* --- Seção "Localização" (Página 8 do PDF) --- */
+/* --- Seção "Localização" --- */
 .location-section {
     padding: 40px 2%;
-    max-width: 1200px; /* Largura máxima igual ao chales-section */
-    margin: 40px auto; /* Centraliza e mantém margem superior */
-    background-color: var(--color-light-background); /* Fundo claro, conforme PDF */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adiciona sombra para consistência visual */
-    border-radius: 20px; /* Adiciona borda arredondada para consistência */
+    max-width: 1200px;
+    margin: 40px auto;
+    background-color: var(--color-light-background);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
 }
 
-/* Estilo para o título da seção QUANDO DENTRO de uma section específica */
 .location-section .section-title-container {
-    background-color: var(--color-dark-green); /* Fundo escuro para o título */
-    color: var(--color-text-light); /* Texto claro para o título */
-    box-shadow: none; /* Sem sombra, pois a section pai tem */
-    padding: 25px 0; /* Padding vertical do título */
-    margin: 0 auto 30px auto; /* Centraliza e adiciona margem inferior para separar do conteúdo */
-    border-radius: 20px 20px 0 0; /* Arredonda apenas o topo, para "grudar" no conteúdo abaixo */
-    width: 100%; /* Garante que ocupe 100% da largura da section pai */
-    max-width: unset; /* Remove qualquer max-width anterior para esticar */
+    background-color: var(--color-dark-green);
+    color: var(--color-text-light);
+    box-shadow: none;
+    padding: 25px 0;
+    margin: 0 auto 30px auto;
+    border-radius: 20px 20px 0 0;
+    width: 100%;
 }
 
 .location-content {
@@ -435,8 +488,8 @@ body {
     flex-wrap: wrap;
     justify-content: center;
     gap: 50px;
-    max-width: 1000px; /* Controla a largura do conteúdo interno */
-    margin: 30px auto 0; /* Centraliza o conteúdo interno */
+    max-width: 1000px;
+    margin: 30px auto 0;
     text-align: left;
 }
 
@@ -487,79 +540,104 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.map-placeholder {
+.location-map iframe {
     width: 100%;
-    height: 350px; /* Altura fixa para o mapa placeholder */
-    object-fit: cover;
+    height: 350px;
+    border: 0;
     display: block;
+    max-width: 100%;
 }
 
-/* --- Seção "Entre em contato" (Página 9 do PDF) --- */
-.contact-section {
+/* --- Nova Seção: Dúvidas Frequentes (FAQ) --- */
+.faq-main-section {
+    padding: 40px 2%;
+    max-width: 1200px;
+    margin: 40px auto;
+    background-color: var(--color-light-background);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+}
+
+.faq-main-section .section-title-container {
     background-color: var(--color-dark-green);
     color: var(--color-text-light);
-    padding: 40px 2%;
-    margin-top: 40px;
+    border-radius: 20px 20px 0 0;
+    padding: 25px 0;
+    margin-bottom: 30px;
 }
 
-.contact-form {
-    max-width: 600px;
-    margin: 30px auto 0;
+.faq-section {
     display: flex;
     flex-direction: column;
     gap: 15px;
-    text-align: left;
+    max-width: 800px; /* Limita a largura da seção FAQ */
+    margin: 0 auto; /* Centraliza */
+    text-align: left; /* Alinha o texto das perguntas/respostas à esquerda */
+    padding: 0 20px 20px; /* Padding interno */
 }
 
-.contact-form label {
-    font-size: 1.1rem;
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-
-.contact-form input[type="text"],
-.contact-form input[type="email"],
-.contact-form input[type="tel"],
-.contact-form textarea {
-    width: 100%;
-    padding: 12px;
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
-    background-color: var(--color-light-background);
-    color: var(--color-text-dark);
-}
-
-.contact-form textarea {
-    resize: vertical;
-    min-height: 100px;
-}
-
-.contact-form input::placeholder,
-.contact-form textarea::placeholder {
-    color: #555;
-}
-
-.send-button {
+.faq-item {
     background-color: var(--color-medium-green);
+    border-radius: 10px;
+    overflow: hidden; /* Importante para a transição de altura */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.faq-question {
+    background-color: var(--color-dark-green);
     color: var(--color-text-light);
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
     border: none;
-    padding: 15px 30px;
-    border-radius: 25px;
-    font-size: 1.3rem;
-    font-weight: bold;
+    text-align: left;
     cursor: pointer;
-    margin-top: 20px;
+    font-size: 1.2rem;
+    font-weight: bold;
     transition: background-color 0.3s ease;
-    align-self: center;
-    width: fit-content;
 }
 
-.send-button:hover {
-    background-color: #274237;
+.faq-question h3 {
+    margin: 0; /* Remove margem padrão do h3 dentro do botão */
+    flex-grow: 1; /* Permite que o h3 ocupe o espaço */
+    color: var(--color-text-light); /* Garante que o texto da pergunta seja claro */
 }
 
-/* --- Rodapé (Página 10 do PDF) --- */
+.faq-question:hover {
+    background-color: #05231a;
+}
+
+.faq-arrow {
+    font-size: 1.5rem;
+    margin-left: 15px;
+    transition: transform 0.3s ease;
+}
+
+.faq-item.active .faq-arrow {
+    transform: rotate(180deg); /* Gira a seta para cima quando ativo */
+}
+
+.faq-answer {
+    background-color: var(--color-light-green); /* Fundo claro para a resposta */
+    color: var(--color-text-dark); /* Texto escuro para a resposta */
+    padding: 0 20px; /* Padding horizontal, vertical 0 para esconder */
+    max-height: 0; /* Começa escondido */
+    overflow: hidden;
+    transition: max-height 0.3s ease-out, padding 0.3s ease-out; /* Transição suave */
+}
+
+.faq-item.active .faq-answer {
+    max-height: 200px; /* Altura máxima para mostrar o conteúdo, ajuste se necessário */
+    padding: 15px 20px; /* Adiciona padding vertical quando ativo */
+}
+
+.faq-answer p {
+    margin: 0; /* Remove margem padrão do parágrafo */
+}
+
+/* --- Rodapé --- */
 .footer {
     background-color: var(--color-dark-green);
     color: var(--color-text-light);
@@ -570,21 +648,14 @@ body {
     gap: 25px;
 }
 
-.footer-logo-container {
-    padding-top: 10px;
-}
-
-.footer-logo {
-    width: 200px;
-    height: auto;
-    object-fit: contain;
-}
-
 .footer-contacts {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     gap: 15px;
+    max-width: 400px;
+    width: 100%;
+    margin: 0 auto;
 }
 
 .contact-item {
@@ -593,7 +664,6 @@ body {
     gap: 10px;
     font-size: 1.1rem;
     font-weight: bold;
-    white-space: nowrap;
 }
 
 .contact-item img {
@@ -613,7 +683,7 @@ body {
 }
 
 .contact-item.address {
-    text-align: center;
+    text-align: left;
 }
 
 .copyright,
@@ -625,368 +695,185 @@ body {
 
 /* --- MEDIA QUERIES para Responsividade --- */
 
-/* Tablet e laptops menores (max-width: 1024px) */
+/* Tablet (max-width: 1024px) */
 @media (max-width: 1024px) {
     .header {
-        height: auto; /* Altura flexível */
+        padding: 10px 3%;
+    }
+
+    .info-block {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .info-block.reverse-layout {
+        flex-direction: column; /* Manter a mesma direção de coluna */
+    }
+
+    .info-image-container {
+        max-width: 80%;
+        margin: 0 auto;
+    }
+    
+    .info-text {
+        text-align: center;
+    }
+
+    .info-text hr {
+        margin: 15px auto;
+    }
+
+ /* FAQ section responsiveness for tablets */
+    .faq-section {
+        padding: 0 15px 15px; /* Adjust padding for tablets */
+    }
+
+    .faq-question {
+        font-size: 1.1rem;
+        padding: 12px 15px;
+    }
+}
+
+/* Smartphones e Tablets em modo Retrato (max-width: 768px) */
+@media (max-width: 768px) {
+    .logo-image {
+        max-width: 180px; /* Logo um pouco menor no mobile */
+    }
+    
+    /* MOSTRA O BOTÃO HAMBÚRGUER */
+    .hamburger-btn {
+        display: flex;
+    }
+
+    /* ESTILOS DO MENU MOBILE (quando escondido e quando ativo) */
+    .nav-container {
+        position: fixed;
+        top: 0;
+        right: -100%; /* Começa fora da tela */
+        width: 70%;
+        max-width: 300px;
+        height: 100vh;
+        background-color: var(--color-light-green); /* Cor de fundo do menu */
         flex-direction: column;
         justify-content: center;
-        padding-top: 10px;
+        align-items: center;
+        gap: 40px;
+        transition: right 0.4s ease-in-out;
+        z-index: 1000;
+        padding-top: 80px;
     }
 
-    .header-top-background {
-        width: 80vw;
-        height: 150px; /* Ajusta a altura da curva */
-        border-bottom-right-radius: 800px; /* Ajusta a curva */
+    .nav-container.active {
+        right: 0; /* Desliza para dentro da tela */
     }
 
-    .logo-container {
-        margin-left: 0;
+    .nav-container .main-nav {
+        flex-direction: column;
+        gap: 20px;
+        width: 100%;
         text-align: center;
-        width: 100%; /* Ocupa toda a largura para centralizar */
-        padding-top: 10px; /* Espaço para a logo abaixo do topo do background */
     }
 
-    .logo-image {
-        width: 200px; /* Logo um pouco menor para tablets */
-        margin: 0 auto; /* Centraliza a logo */
+    .nav-container .main-nav a {
+        font-size: 1.4rem;
     }
-
-    .main-nav {
-        flex-direction: column; /* Links em coluna */
-        gap: 10px;
-        margin-top: 15px;
-        margin-left: 0;
-        width: 100%; /* Ocupa toda a largura */
-    }
-
-    .main-nav a {
-        font-size: 1.1rem;
-    }
-
-    .reserve-button {
-        margin-right: 0;
-        margin-top: 15px;
+    
+    .nav-container .reserve-button {
         font-size: 1.2rem;
-        padding: 10px 20px;
     }
+    
+    /* --- Outros ajustes para mobile --- */
 
     .hero-banner {
-        font-size: 1.1rem;
-        padding: 15px;
-        margin: 15px 2%;
-    }
-
-    /* Ajuste para a imagem única em tablets */
-    .single-hero-image {
-        height: 300px; /* Altura menor para tablets */
-    }
-
-    .section-title {
-        font-size: 1.8rem;
-    }
-
-    .section-subtitle {
         font-size: 1rem;
     }
 
     .chale-grid {
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Mantém 2 colunas */
-        gap: 20px;
-        margin: 30px auto;
-    }
-
-    .chale-image {
-        height: 180px;
-    }
-
-    .chale-button {
-        font-size: 1rem;
-        padding: 8px 15px;
-    }
-
-    .info-block {
-        flex-direction: column; /* Blocos de informação em coluna */
-        gap: 20px;
-        padding: 15px;
-        margin-bottom: 40px;
-    }
-
-    .info-block.reverse-layout {
-        flex-direction: column; /* Garante que continue em coluna */
-    }
-
-    .info-image-container {
-        max-width: 100%; /* Ocupa largura total */
-        padding: 5px;
-        flex: unset; /* Reseta flex para não ter largura fixa */
-    }
-
-    .info-image {
-        height: 250px; /* Altura ajustada para tablets */
-    }
-
-    .info-text {
-        text-align: center; /* Centraliza o texto nas colunas */
-        font-size: 1rem;
-    }
-
-    .info-text hr {
-        width: 60%;
-        margin: 15px auto;
+        grid-template-columns: 1fr;
     }
 
     .cachoeira-content-wrapper,
     .location-content {
-        flex-direction: column; /* Colunas em uma única coluna */
+        flex-direction: column;
         gap: 30px;
-        margin: 20px auto 0;
-        text-align: center; /* Centraliza o texto */
+        text-align: center;
     }
 
-    .cachoeira-details,
-    .cachoeira-reviews,
-    .location-info,
-    .location-map {
-        min-width: unset;
-        width: 100%;
+    .cachoeira-details, .location-info {
+        text-align: center;
+    }
+    
+    .footer-contacts {
+        align-items: center;
+        text-align: center;
     }
 
+    .contact-item.address {
+        text-align: center;
+    }
+
+/* FAQ section responsiveness for smartphones */
+    .faq-section {
+        padding: 0 10px 10px; /* Adjust padding for smartphones */
+    }
+
+    .faq-question {
+        font-size: 1rem;
+        padding: 10px 12px;
+    }
+
+}
+
+
+/* Celulares pequenos (até 480px) */
+@media (max-width: 480px) {
+    
+    .hero-banner {
+        font-size: 0.9rem;
+        padding: 15px;
+    }
+
+    .logo-image {
+        max-width: 140px;
+    }
+
+    .reserve-button {
+        padding: 10px 18px;
+        font-size: 1.1rem;
+    }
+
+    .main-nav a {
+        font-size: 1.2rem;
+    }
+
+    .chale-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .info-image-container {
+        max-width: 90%;
+    }
+
+    .info-text {
+        font-size: 1.1rem;
+    }
+
+    .section-title {
+        font-size: 1.6rem;
+    }
+
+    .chales-highlight {
+        font-size: 1rem;
+        padding: 8px 15px;
+    }
+
+    .reviews-title,
     .cachoeira-details h3,
     .location-info h3 {
         font-size: 1.2rem;
     }
 
-    .cachoeira-details p,
-    .location-info p {
-        font-size: 1rem;
-    }
-
-    .reviews-box {
-        padding: 15px;
-    }
-
-    .reviews-rating {
-        font-size: 1.8rem;
-    }
-
-    .stars {
-        font-size: 1.3rem;
-    }
-
-    .reviews-count {
-        font-size: 0.9rem;
-    }
-
-    .review-text {
-        font-size: 0.95rem;
-        padding: 15px;
-    }
-
-    .map-placeholder {
-        height: 300px;
-    }
-
-    .contact-form {
-        max-width: 90%;
-        gap: 10px;
-    }
-
-    .contact-form label,
-    .contact-form input,
-    .contact-form textarea,
-    .send-button {
-        font-size: 1rem;
-    }
-
-    .send-button {
-        padding: 12px 25px;
-    }
-
-    .footer {
-        padding: 30px 2%;
-        gap: 20px;
-    }
-
-    .footer-logo {
-        width: 160px;
-    }
-
-    .footer-contacts {
-        align-items: center;
-        gap: 10px;
-    }
-
-    .contact-item {
-        font-size: 1rem;
-    }
-}
-
-/* Smartphones (max-width: 768px) */
-@media (max-width: 768px) {
-    .header {
-        padding: 10px 0;
-    }
-
-    .header-top-background {
-        width: 100vw;
-        height: 120px; /* Mais ajuste na altura da curva */
-        border-bottom-right-radius: 600px; /* Ajuste da curva para mobile */
-    }
-
-    .logo-image {
-        width: 180px; /* Logo menor ainda */
-    }
-
-    .main-nav {
-        gap: 8px;
-        margin-top: 10px;
-    }
-
-    .main-nav a {
-        font-size: 0.95rem;
-    }
-
-    .reserve-button {
-        font-size: 0.95rem;
-        padding: 8px 18px;
-        margin-top: 10px;
-    }
-
-    .hero-banner {
-        font-size: 0.95rem;
-        padding: 12px;
-        margin: 10px 2%;
-    }
-
-    /* Ajuste para a imagem única em smartphones */
-    .single-hero-image {
-        height: 200px; /* Altura menor para smartphones */
-    }
-
-    .section-title {
-        font-size: 1.4rem;
-        padding: 15px 0;
-    }
-
-    .section-subtitle {
-        font-size: 0.85rem;
-    }
-
-    .chale-grid {
-        grid-template-columns: 1fr; /* Uma única coluna */
-        gap: 15px;
-        margin: 20px auto;
-    }
-
-    .chale-image {
-        height: 150px;
-    }
-
-    .chale-button {
-        font-size: 0.9rem;
-        padding: 7px 12px;
-    }
-
-    .chales-highlight {
-        font-size: 0.95rem;
-        padding: 8px 15px;
-    }
-
-    .info-section {
-        padding: 20px 2%;
-    }
-
-    .info-block {
-        gap: 15px;
-        padding: 10px;
-        margin-bottom: 30px;
-    }
-
-    .info-image {
-        height: 200px; /* Altura ajustada para smartphones */
-    }
-
-    .info-text {
-        font-size: 0.9rem;
-    }
-
-    .info-text hr {
-        width: 50%;
-        margin: 10px auto;
-    }
-
-    .cachoeira-section,
-    .location-section,
-    .contact-section {
-        padding: 20px 2%;
-    }
-
-    .cachoeira-details h3,
-    .location-info h3 {
-        font-size: 1.05rem;
-    }
-
-    .cachoeira-details p,
-    .location-info p {
-        font-size: 0.9rem;
-    }
-
-    .reviews-box {
-        padding: 10px;
-    }
-
     .reviews-rating {
         font-size: 1.5rem;
-    }
-
-    .stars {
-        font-size: 1.3rem;
-    }
-
-    .reviews-count {
-        font-size: 0.85rem;
-    }
-
-    .review-text {
-        font-size: 0.8rem;
-        padding: 10px;
-    }
-
-    .map-placeholder {
-        height: 250px;
-    }
-
-    .contact-form {
-        gap: 10px;
-    }
-
-    .contact-form label {
-        font-size: 0.95rem;
-    }
-
-    .contact-form input,
-    .contact-form textarea {
-        padding: 10px;
-        font-size: 0.85rem;
-    }
-
-    .send-button {
-        font-size: 1rem;
-        padding: 10px 20px;
-    }
-
-    .footer {
-        padding: 20px 2%;
-        gap: 15px;
-    }
-
-    .footer-logo {
-        width: 120px;
-    }
-
-    .footer-contacts {
-        align-items: center;
-        gap: 10px;
     }
 }
