@@ -166,4 +166,4 @@ if (dotsContainer) {
 showSlide(currentIndex);
 
 // Opcional: Adicionar auto-play
-let autoPlayInterval = setInterval(nextSlide, 3500);
+let autoPlayInterval = setInterval(nextSlide, 3900);
